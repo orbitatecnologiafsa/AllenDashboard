@@ -233,15 +233,13 @@ async function getIp(){
 
 
 function editClient(id) {
-    var width = 1200;
-    var height = 800;
-    var left = (window.innerWidth - width) / 2;
-    var top = (window.innerHeight - height) / 2;
-    var options = 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top;
-  
+
     var url = './editar_morador.html?id=' + id;
-  
+
+    var options = 'width=' + screen.width + ',height=' + screen.height + ',top=0,left=0';
+
     var popup = window.open(url, 'Edição de Usuário', options);
+  
     if (!popup || popup.closed || typeof popup.closed == 'undefined') {
         alert('Por favor, desbloqueie os popups para continuar.');
     }

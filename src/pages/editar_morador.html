@@ -32,18 +32,9 @@
                 <div class="form-foto">
                     <label for="inputImagem">Anexar Foto para Leitor (Obs: O rosto deve estar visivel e com boa iluminação)</label>
                     <input type="file" name="foto" id="inputImagem" required>
-                    <p id="imagem-erro" class="erro">Erro ao enviar foto, por favor enviar no painel de morador!</p>
-                </div>
-                <div class="form-checkbox">
-                    <label for="select_tipo">Vai ter acesso ao chat?</label>
-                    <select name="select_tipo" id="tipo" required>
-                        <option value="" disabled selected>Selecione</option>
-                        <option value="Com chat">Sim</option>
-                        <option value="Sem chat">Não</option>
-                    </select>
                 </div>
                 <div class="form-select-leitor">
-                    <label for="select_leitor">Em qual(is) leitor(es) você deseja cadastrar?</label> 
+                    <label for="select_leitor">Em qual(is) leitor(es) você deseja re-cadastrar?</label> 
                     <div id="checkbox_group" class="checkbox-group">
 
                     </div>
@@ -54,5 +45,6 @@
     </section>
     <script type="module" src="../js/firebase_config.js"></script>
     <script type="module" src="../js/editar_morador.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

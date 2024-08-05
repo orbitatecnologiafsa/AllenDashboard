@@ -71,7 +71,7 @@ section{
     outline: none;
     font-size: 16px;
     font-weight: 500;
-    color: #32abfb;
+    color: black;
 }
 .form-group input:focus{
     border: 2px solid #32abfb;
@@ -141,4 +141,35 @@ select{
 }
 #form-morador button:hover{
     background: linear-gradient(to right, #003bfe, #d932fb);
+}
+.form-select-leitor{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 5px;
+    width: 80%;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.checkbox_group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 80%;
+    margin-bottom: 10px;
+    
+}
+.checkbox-wrapper {
+    display: flex;
+    gap: 10px;
+    font-size: 18px;
+    color: #32abfb;
+    width: 100%;
+    font-weight: bold;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.checkbox-wrapper:first-child{
+    margin-top: 10px;
 }
