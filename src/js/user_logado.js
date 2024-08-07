@@ -302,7 +302,7 @@ async function baixarFoto(user_id) {
             const ip = ips[i];
             const id_array = user_id[i];
             //console.log("id_array:" + id_array);
-                const statusIco = document.getElementById('conexao_ico');
+               
                 try {
 
                         const conexao = await axios.post(`http://${ip}/login.fcgi`, {
@@ -311,7 +311,7 @@ async function baixarFoto(user_id) {
                         });
                     
                         if (conexao.data.session) {
-                            statusIco.style.color = '#25d366';
+                           
                             const session = conexao.data.session;
                             console.log('Sessão Foto:', session);
                             const response = await fetch(`http://${ip}/user_get_image.fcgi?user_id=${id_array}&session=${session}`, {

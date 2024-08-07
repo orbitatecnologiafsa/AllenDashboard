@@ -194,17 +194,31 @@ async function mudarStatus(cod_pedido){
 
         console.log(informacoes);
     
-        informacoes.forEach(doc => {
-            console.log(doc.id);
-            delivery.doc(doc.id).update({ status: 'entregue' });
+        console.log("codigo do pedido chegou:",cod_pedido);
+        $.ajax({
+            url: 'http://localhost:4000/execute',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ parameter: cod_pedido }),
+            success: function(response) {
+                alert(response);
+                informacoes.forEach(doc => {
+                    console.log(doc.id);
+                    delivery.doc(doc.id).update({ status: 'entregue' });
+                });
+        
+                setTimeout(() => {
+                    preencherDadosExistentes();
+                }, 3000);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
         });
-
-        setTimeout(() => {
-            preencherDadosExistentes();
-        }, 3000);
-    }
-    
 }
+}
+    
+    
 
 preencherDadosExistentes();
 setInterval(() => {

@@ -318,7 +318,7 @@ async function getIp() {
 async function conectarFaceID(ip) {
     
     return new Promise((resolve, reject) => {
-        const statusIco = document.getElementById('conexao_ico');
+
         $.ajax({
             url: "http://" + ip + "/login.fcgi",
             type: 'POST',
