@@ -35,7 +35,7 @@ const elementosPorPagina = 10;
 let paginaAtual = 1;
 
 
-async function preencherDadosExistentes() {
+async function preencherDadosExistentes(value) {
     try {
         
         const delivery = firebase.firestore().collection('delivery');
@@ -46,16 +46,35 @@ async function preencherDadosExistentes() {
 
         const informacoes = await deliveryData.get();
 
-        listaCompleta.length = 0;
+        if(value != null){
+            const pesquisa_inicial = value;
+            const pesquisa_final = pesquisa_inicial + '\uf8ff';
+            const deliveryData = delivery.where('cod_cond', '==', condominio).where('cod_delivery', '>=', pesquisa_inicial).where('cod_delivery', '<=', pesquisa_final);
+            const informacoes = await deliveryData.get();
 
-        informacoes.forEach(doc => {
-            const deliveryData = doc.data();
-            console.log(deliveryData);
-            listaCompleta.push(deliveryData);
-        });
-        exibirElementos(listaCompleta, paginaAtual);
-        exibirPaginacao(listaCompleta);
-        console.log(listaCompleta);
+            listaCompleta.length = 0;
+            informacoes.forEach(doc => {
+                const deliveryData = doc.data();
+                console.log(deliveryData);
+                listaCompleta.push(deliveryData);
+            });
+            exibirElementos(listaCompleta, paginaAtual);
+            exibirPaginacao(listaCompleta);
+            console.log(listaCompleta);
+        }
+        else{
+            listaCompleta.length = 0;
+
+            informacoes.forEach(doc => {
+                const deliveryData = doc.data();
+                console.log(deliveryData);
+                listaCompleta.push(deliveryData);
+            });
+            exibirElementos(listaCompleta, paginaAtual);
+            exibirPaginacao(listaCompleta);
+            console.log(listaCompleta);
+        }
+        
     } catch (error) {
         console.error('Erro ao preencher dados existentes:', error);
     }
@@ -189,5 +208,17 @@ async function mudarStatus(cod_pedido){
 
 preencherDadosExistentes();
 setInterval(() => {
-    preencherDadosExistentes();
+    if(document.getElementById('search').value == ''){
+        preencherDadosExistentes();
+    }  
 }, 20000);
+
+
+document.getElementById('search_form').addEventListener('submit', function(event) {
+    event.preventDefault();
+   
+    const input = document.getElementById('search');
+    const value = input.value.trim().toLowerCase();
+    console.log(value);
+    preencherDadosExistentes(value);
+});

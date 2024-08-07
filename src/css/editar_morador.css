@@ -29,7 +29,7 @@ section{
     box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
 }
 .form-title{
-    background-color: #32abfb;
+    background-color: #c41469;
     color: white;
     width: 100%;
     height: 50px;
@@ -48,7 +48,7 @@ section{
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    border: 2px solid #32abfb;
+    border: 2px solid #c41469;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 
@@ -74,16 +74,16 @@ section{
     color: black;
 }
 .form-group input:focus{
-    border: 2px solid #32abfb;
+    border: 2px solid #c41469;
 }
 .form-group label{
     font-weight: bold;
-    color: #32abfb;
+    color: #c41469;
 }
 
 label[for="select_tipo"]{
     font-weight: bold;
-    color: #32abfb;
+    color: #c41469;
     font-weight: 500;
     font-size: 16px;
     margin-right: 5px;
@@ -92,7 +92,7 @@ label[for="select_tipo"]{
 select{
     width: fit-content;
     height: 25px;
-    border: 1px solid #32abfb;
+    border: 1px solid #c41469;
     border-radius: 5px;
     padding: 0 10px;
     outline: none;
@@ -107,7 +107,7 @@ select{
     justify-content: center;
     align-items: start;
     font-weight: bold;
-    color: #32abfb;
+    color: #c41469;
     gap: 10px;
     width: 80%;
     justify-content: start;
@@ -129,7 +129,7 @@ select{
 #form-morador button{
     width: 80%;
     height: 40px;
-    background: linear-gradient(to right, #003bfe, #32abfb);
+    background: linear-gradient(to right, #821A4D, #c41469);
     color: white;
     border: none;
     border-radius: 5px;
@@ -139,9 +139,7 @@ select{
     transition: all 1.5s ease-in-out;
     margin-bottom: 20px;
 }
-#form-morador button:hover{
-    background: linear-gradient(to right, #003bfe, #d932fb);
-}
+
 .form-select-leitor{
     display: flex;
     flex-direction: column;
@@ -164,7 +162,7 @@ select{
     display: flex;
     gap: 10px;
     font-size: 18px;
-    color: #32abfb;
+    color: #c41469;
     width: 100%;
     font-weight: bold;
     align-items: center;
