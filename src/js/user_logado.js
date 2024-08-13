@@ -59,36 +59,40 @@ async function mostrarMorador() {
     try {
         moradorCond.forEach(doc => {
 
-        if(doc.data().tipo == 'Com chat'){
-            const morador = {
-                nome: doc.data().nome,
-                cpf: formatarCPF(doc.data().cpf),
-                casa: doc.data().casa,
-                tipo: doc.data().tipo,
-                whatsapp: formatarWhasapp(doc.data().whatsapp),
-                condominio: doc.data().condominio,
-                foto: doc.data().foto,
-                ids: doc.data().ids,
-                status: doc.data().status
-            };
-            listaCompleta.push(morador); 
-        } else {
-            const morador = {
-                nome: doc.data().nome,
-                casa: doc.data().casa,
-                tipo: doc.data().tipo,
-                foto: doc.data().foto,
-                ids: doc.data().ids,
-                condominio : doc.data().condominio,
-                status: doc.data().status
+
+        if(doc.data().status == 'ativo') {
+            if(doc.data().tipo == 'Com chat'){
+                const morador = {
+                    nome: doc.data().nome,
+                    cpf: formatarCPF(doc.data().cpf),
+                    casa: doc.data().casa,
+                    tipo: doc.data().tipo,
+                    whatsapp: formatarWhasapp(doc.data().whatsapp),
+                    condominio: doc.data().condominio,
+                    foto: doc.data().foto,
+                    ids: doc.data().ids,
+                    status: doc.data().status
+                };
+                listaCompleta.push(morador); 
+            } else {
+                const morador = {
+                    nome: doc.data().nome,
+                    casa: doc.data().casa,
+                    tipo: doc.data().tipo,
+                    foto: doc.data().foto,
+                    ids: doc.data().ids,
+                    condominio : doc.data().condominio,
+                    status: doc.data().status
+                }
+                listaCompleta.push(morador); 
             }
-            listaCompleta.push(morador); 
+            exibirElementos(listaCompleta, paginaAtual);
+            exibirPaginacao(listaCompleta);
+       
         }
-        exibirElementos(listaCompleta, paginaAtual);
-        exibirPaginacao(listaCompleta);
     });
     } catch(error) {
-        //console.log("A lista está vazia, erro: " + error);
+        console.log("A lista está vazia, erro: " + error);
     }
 }
 
@@ -163,11 +167,11 @@ function exibirElementos(lista, pagina) {
             editImg.setAttribute('src','../img/editar.svg');
             editImg.style.cursor = 'pointer';
             editImg.addEventListener('click', () => {
-                editClient(morador.ids);
+                alert("Você não pode editar o morador ativo, por favor, entre em contato com o sindico");
             });
             deleteImg.setAttribute('src','../img/remover.svg');
             deleteImg.addEventListener('click', () => {
-                deleteClient(morador.ids);
+                alert("Você não pode remover o morador ativo, por favor, entre em contato com o sindico");
             });
             deleteImg.style.cursor = 'pointer';
             moradorItem.style.backgroundColor = 'white';

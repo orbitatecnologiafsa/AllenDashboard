@@ -8,7 +8,6 @@
     font-family: 'Montserrat';
 }
 body{
-    font-family: 'Roboto', sans-serif;
     background: linear-gradient(to right, #821A4D, #c41469);
     display: flex;
     flex-direction: column;

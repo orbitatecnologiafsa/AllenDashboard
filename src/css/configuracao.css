@@ -6,7 +6,6 @@
     font-family: 'Montserrat';
 }
 body{
-    font-family: 'Roboto', sans-serif;
     background-color: #ffffff7a;
     display: flex;
     flex-direction: column;
@@ -117,7 +116,11 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .menu li:hover, #active{
-    background: linear-gradient(to right, #821A4D, #c41469);
+    background-color: white;
+    border: 2px solid black;
+}
+.menu li:hover a, #active a{
+    color: #821A4D;
 }
 
 .menu a{

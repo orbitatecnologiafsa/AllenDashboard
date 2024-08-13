@@ -44,7 +44,7 @@ async function semChat() {
     const cod_condominio = await getCondominio();
 
     const morador = {
-        nome : document.getElementById("nome").value,
+        nome : document.getElementById("nome").value.toUpperCase(),
         casa : document.getElementById("casa").value,
         tipo : document.getElementById("select_morador").value,
         condominio : cod_condominio,
@@ -64,7 +64,7 @@ async function comChat() {
     const cod_condominio = await getCondominio();
     
     const morador = {
-        nome: document.getElementById("nome").value,
+        nome: document.getElementById("nome").value.toUpperCase(),
         cpf: document.getElementById("cpf_morador").value,
         whatsapp: document.getElementById("whatsapp").value,
         casa: document.getElementById("casa").value,
@@ -428,6 +428,46 @@ function enviarImagem(id,ip,id_morador,session){
        
 }
 
+// Verificar se existe leitor cadastrado, e se ta conectado
 
+async function verificarLeitoresCadastrados() {
+    try {
+        const email = await getEmail();
+        const sindicoDb = firebase.firestore().collection('condominio');
+        const sindicoQuery = await sindicoDb.where('email', '==', email).get();
+       
+        if (sindicoQuery.empty) {
+            console.log('Nenhum documento encontrado para o email fornecido.');
+            return;
+        }
 
+        sindicoQuery.forEach(doc => {
+           
+            if (doc.data().hasOwnProperty('ips')) {
+                console.log('O campo "ips" existe:', doc.data().ips);
+                verificarConexao(doc.data().ips)
+            } else {
+                console.log('O campo "ips" não existe.');
+                return false;
+            }
+        });
+    } catch (error) {
+        console.error('Erro ao verificar leitores cadastrados:', error);
+    }
+}
 
+//TERMINAR ISSO AQ
+async function verificarConexao(ips) {
+    
+    console.log("Chegou em verificar")
+    for (const ip of ips) {
+        console.log(ip);
+        const session = await conectarFaceID(ip);
+        alert(`Erro ao conectar ao leitor ${ip}`);
+    }
+    
+}
+if(!verificarLeitoresCadastrados() != false){
+    alert('Crie o leitor antes de cadastrar o morador');
+    window.location.href = 'configuracao.html';
+}

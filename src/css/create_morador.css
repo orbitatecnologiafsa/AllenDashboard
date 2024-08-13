@@ -7,7 +7,6 @@
    
 }
 body{
-    font-family: 'Roboto', sans-serif;
     background-color: #ffffff7a;
     display: flex;
     flex-direction: column;
@@ -98,9 +97,12 @@ nav p{
 }
 
 .menu li:hover, #active{
-    background: linear-gradient(to right, #821A4D, #c41469);
+    background-color: white;
+    border: 2px solid black;
 }
-
+.menu li:hover a, #active a{
+    color: #821A4D;
+}
 .menu a{
     color: white;
     text-decoration: none;

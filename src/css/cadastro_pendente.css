@@ -11,8 +11,8 @@ body{
     flex-direction: column;
     align-items: center;
     height: 100vh;
-    width: 100%;
-    transition: 0.3s filter ease;
+    width: 100vw;
+    overflow-x: hidden;
 }
 .header{
     position: absolute;
@@ -22,12 +22,6 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-}
-#conexao_ico{
-    color: gray;
-    background-color: white;
-    padding: 5px;
-    border-radius: 50%;
 }
 .header-container{
     color: white;
@@ -53,29 +47,7 @@ nav p{
     font-weight: 500;
     cursor: pointer;
 }
-#sidebar{
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 107px;
-    height: 100vh;
-    padding: 0 1.7rem;
-    color: white;
-    overflow: hidden;
-    transition: all 0.5s linear;
-    background: linear-gradient(to bottom, #821A4D, #c41469);
-    z-index: 2;
-    
-}
-.blur{
-    filter: blur(5px); 
-}
-#sidebar:hover{
-    width: 330px;
-    transition: 0.5s;
-    border-right: 2px solid white;
-}
+
 #search{
     width: 450px;
     height: 40px;
@@ -92,23 +64,30 @@ nav p{
 #search::placeholder{
     color: white;
 }
-#btn_search{
-    width: 40px;
-    height: 41px;
-    border-radius: 10px;
-    background-color: white;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    transition: 0.5s;
+input[type="search"]::-webkit-search-cancel-button {
+    display: none;
 }
-#btn_search:hover{
-    background-color: #c41469;
+#sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 107px;
+    height: 100vh;
+    padding: 0 1.7rem;
     color: white;
+    overflow: hidden;
+    transition: all 0.5s linear;
+    background: linear-gradient(to bottom, #821A4D, #c41469);
+    z-index: 2;
 }
-#btn_search i{
-    font-size: 20px;
+
+#sidebar:hover{
+    width: 330px;
+    transition: 0.5s;
+    border-right: 2px solid white;
 }
+
 #logo{
     width: 100%;
     display: flex;
@@ -121,7 +100,6 @@ nav p{
 #logo img{
     width: 60px;
 }
-
 .menu{
     height: 90%;
     position: relative;
@@ -161,6 +139,17 @@ nav p{
 .menu a i{
     font-size: 1.2rem;
 }
+#btn_search{
+    width: 40px;
+    height: 41px;
+    border-radius: 10px;
+    background-color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
 .container{
     width: 100%;
     
@@ -173,7 +162,7 @@ nav p{
     border-radius: 20px;
     padding-bottom: 20px;
     height: fit-content;
-    width: 75%;
+    width: 85%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -191,7 +180,7 @@ nav p{
     display: grid;
     width: 100%;
     text-align: center;
-    grid-template-columns: repeat(5, 1fr); 
+    grid-template-columns: repeat(6, 1fr); 
     grid-gap: 10px; 
     margin-top: 20px;
     padding: 10px;
@@ -203,11 +192,6 @@ nav p{
 .user-grid-item {
     padding: 5px;
     font-weight: bold;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
 }
 .user-grid-item:not(:last-child){
     border-right: 2px solid white;
@@ -218,13 +202,13 @@ nav p{
 }
 .item-list{
     width: 100%;
-    height: 80px;
+    height: 100px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     grid-gap: 10px; 
     padding: 10px;
     color: #821A4D;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: bold;
     padding-bottom: 5px;
     border-bottom: 2px solid gray;
@@ -275,11 +259,12 @@ nav p{
 .item:not(:last-child){
     border-right: 2px solid gray;
 }
-.img_div{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 .icon{
     width: 50px;
+}
+.img-div{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
 }

@@ -1,3 +1,4 @@
+
 import { } from './firebase_config.js';
 
 //Consumir firebase
@@ -220,13 +221,23 @@ async function mudarStatus(cod_pedido){
     
     
 
-preencherDadosExistentes();
-setInterval(() => {
-    if(document.getElementById('search').value == ''){
-        preencherDadosExistentes();
-    }  
-}, 20000);
-
+firebase.firestore().collection("delivery").onSnapshot((snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+            console.log("Novo documento adicionado: ", change.doc.data());
+            preencherDadosExistentes(null);
+        }
+        if (change.type === "modified") {
+            console.log("Documento modificado: ", change.doc.data());
+            preencherDadosExistentes(null);
+        }
+        if (change.type === "removed") {
+            console.log("Documento removido: ", change.doc.data());
+            preencherDadosExistentes(null);
+        }
+    });
+});
+preencherDadosExistentes(null);
 
 document.getElementById('search_form').addEventListener('submit', function(event) {
     event.preventDefault();
