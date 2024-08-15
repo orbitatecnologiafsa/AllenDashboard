@@ -16,22 +16,6 @@ function getEmail() {
     });
 }
 
-
-async function showName(){
-
-    const userEmail = await getEmail();
-    const userDb = await firebase.firestore().collection('condominio');
-    const sindico = await userDb.where('email', '==', userEmail).get();
-    const sindicoData = sindico.docs[0].data();
-    const sindicoEmail = sindicoData.email;
-
-    document.getElementById('user-name').innerHTML = " " + sindicoEmail;
-    document.getElementById('user-name').style.color = '#FEEFAD';
-    document.getElementById('user-name').style.fontWeight = 'bold';
-    document.getElementById('user-name').style.textDecoration = 'underline';
-
-
-}
 const listaCompleta = []
 const elementosPorPagina = 5;
 let paginaAtual = 1;
@@ -146,7 +130,7 @@ function exibirElementos(lista, pagina) {
         aprovarImg.setAttribute('onclick', 'aprovar(' + morador.ids + ')');
         aprovarImg.setAttribute('style', 'cursor: pointer;');
         aprovarImg.addEventListener('click', function() {
-            aprovar(morador.cpf);
+            aprovar(morador);
         })
 
 
@@ -189,13 +173,13 @@ function irParaPagina(pagina) {
     atualizarPaginacao();
 }
 
-async function aprovar(cpf) {
+async function aprovar(morador) {
 
     if(confirm('Tem certeza que deseja aprovar o cadastro?')) {
-        const morador = await firebase.firestore().collection('moradores').where('cpf', '==', cpf).get();
+        const morador = await firebase.firestore().collection('moradores').where('cpf', '==', morador.cpf).get();
         const id = morador.docs[0].id;
         await firebase.firestore().collection('moradores').doc(id).update({
-            status: 'aprovado'
+            status: 'ativo'
         });
         cadastrarNoLeitorSemFoto();
         mostrarMorador();

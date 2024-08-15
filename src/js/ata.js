@@ -68,20 +68,23 @@ form.addEventListener('submit', (event) => {
 
 firebase.firestore().collection("ata").onSnapshot((snapshot) => {
     snapshot.docChanges().forEach((change) => {
-        if (change.type === "added" && change.doc.data().status == 'Pendente') {
+        if (change.type === "added") {
             console.log("Novo documento adicionado: ", change.doc.data());
             const ata = change.doc.data();
             adicionarAtaFeedBack(ata);
         }
         if (change.type === "modified") {
             console.log("Documento modificado: ", change.doc.data());
+            const ata = change.doc.data();
+            alterarModal(ata);
+            alterarAtaFeedBack(ata);
+            
         }
         if (change.type === "removed") {
             console.log("Documento removido: ", change.doc.data());
         }
     });
 });
-
 
 async function adicionarAtaFeedBack(ata){
 
@@ -129,7 +132,7 @@ async function adicionarAtaFeedBack(ata){
 
     const button = document.createElement('button');
     button.className = 'reply-button';
-    button.id = 'reply'; 
+    button.id = ata.codigo; 
 
     const textoBotao = document.createTextNode('Visualizar ');
 
@@ -152,10 +155,30 @@ async function adicionarAtaFeedBack(ata){
     ul.appendChild(li);
 }
 
+//Modificar ATA
+
+function alterarAtaFeedBack(ata) {
+    
+    const button = document.getElementById(ata.codigo);
+
+    if (button) {
+        
+        const closestDiv = button.closest('div');
+
+        if (closestDiv) {
+            const closestSpan = closestDiv.querySelector('span');
+
+            if (closestSpan) {
+                closestSpan.innerHTML = ata.status;
+                closestSpan.setAttribute('class',ata.status.toLowerCase());
+            } 
+        } 
+    } 
+}
 //Mostrar ata no modal
 //Modal
 
-async function abrirModal(param){ {
+function abrirModal(param){ {
 
     console.log(param);
     const popup = document.querySelector('.popup');
@@ -169,7 +192,15 @@ async function abrirModal(param){ {
     document.querySelector('#status_popup').innerHTML = param.status;
     document.querySelector('#feedback_popup').innerHTML = param.feedback;
 } 
-
+function alterarModal(param){
+    document.querySelector('#nome_porteiro_popup').innerHTML = param.porteiro;
+    document.querySelector('#data_popup').innerHTML = converterData(param.data_ocorrido); 
+    document.querySelector('#turno_popup').innerHTML = param.turno;
+    document.querySelector('#texto_ata_popup').value = param.texto_ata;
+    document.querySelector('#problema_popup').innerHTML = param.problema;
+    document.querySelector('#status_popup').innerHTML = param.status;
+    document.querySelector('#feedback_popup').innerHTML = param.feedback;
+}
 }
 window.addEventListener("click", (event) => {
     const popup = document.querySelector(".popup");

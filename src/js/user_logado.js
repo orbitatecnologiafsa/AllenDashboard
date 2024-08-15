@@ -46,7 +46,7 @@ function formatarCPF(cpf) {
     return moradorCpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 }
 
-async function mostrarMorador() {
+async function mostrarMorador(value) {
 
     const userEmail = await getEmail();
     const userDb = await firebase.firestore().collection('condominio');
@@ -57,40 +57,58 @@ async function mostrarMorador() {
     const moradorCond = await moradorRef.where('condominio', '==', codigoSindico).get();
 
     try {
-        moradorCond.forEach(doc => {
 
+        if(value != null){
+            const pesquisa_inicial = value;
+            const pesquisa_final = pesquisa_inicial + '\uf8ff';
 
-        if(doc.data().status == 'ativo') {
-            if(doc.data().tipo == 'Com chat'){
-                const morador = {
-                    nome: doc.data().nome,
-                    cpf: formatarCPF(doc.data().cpf),
-                    casa: doc.data().casa,
-                    tipo: doc.data().tipo,
-                    whatsapp: formatarWhasapp(doc.data().whatsapp),
-                    condominio: doc.data().condominio,
-                    foto: doc.data().foto,
-                    ids: doc.data().ids,
-                    status: doc.data().status
-                };
-                listaCompleta.push(morador); 
-            } else {
-                const morador = {
-                    nome: doc.data().nome,
-                    casa: doc.data().casa,
-                    tipo: doc.data().tipo,
-                    foto: doc.data().foto,
-                    ids: doc.data().ids,
-                    condominio : doc.data().condominio,
-                    status: doc.data().status
-                }
-                listaCompleta.push(morador); 
-            }
+            const moradores = await moradorRef.where('condominio', '==', codigoSindico).where('nome', '>=', pesquisa_inicial).where('nome', '<=', pesquisa_final).get();
+            listaCompleta.length = 0;
+         
+            moradores.forEach(doc => {
+                console.log(doc.id, '=>', doc.data());
+                const moradorData = doc.data();
+                listaCompleta.push(moradorData);
+                });
             exibirElementos(listaCompleta, paginaAtual);
             exibirPaginacao(listaCompleta);
-       
+        } else {
+            listaCompleta.length = 0;
+            moradorCond.forEach(doc => {
+                
+                if(doc.data().status == 'ativo') {
+                    if(doc.data().tipo == 'Com chat'){
+                        const morador = {
+                            nome: doc.data().nome,
+                            cpf: formatarCPF(doc.data().cpf),
+                            casa: doc.data().casa,
+                            tipo: doc.data().tipo,
+                            whatsapp: formatarWhasapp(doc.data().whatsapp),
+                            condominio: doc.data().condominio,
+                            foto: doc.data().foto,
+                            ids: doc.data().ids,
+                            status: doc.data().status
+                        };
+                        listaCompleta.push(morador); 
+                    } else {
+                        const morador = {
+                            nome: doc.data().nome,
+                            casa: doc.data().casa,
+                            tipo: doc.data().tipo,
+                            foto: doc.data().foto,
+                            ids: doc.data().ids,
+                            condominio : doc.data().condominio,
+                            status: doc.data().status
+                        }
+                        listaCompleta.push(morador); 
+                    }
+                    exibirElementos(listaCompleta, paginaAtual);
+                    exibirPaginacao(listaCompleta);
+               
+        }        });
+        
         }
-    });
+   
     } catch(error) {
         console.log("A lista está vazia, erro: " + error);
     }
@@ -340,5 +358,15 @@ async function baixarFoto(user_id) {
 }
 
 showName();
-mostrarMorador();
+mostrarMorador(null);
+
+document.getElementById('search_form').addEventListener('submit', function(event) {
+    event.preventDefault();
+   
+    const input = document.getElementById('search');
+    const value = input.value.trim().toUpperCase();
+    console.log(value);
+    mostrarMorador(value);
+});
+
 

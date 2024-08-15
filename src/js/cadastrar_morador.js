@@ -25,6 +25,7 @@ button.addEventListener('click', function(){
         document.getElementById('section-container').style.display = 'flex';
         document.getElementById('zap').style.display = 'none';
         document.getElementById('cpf').style.display = 'none';
+        document.getElementById('email_senha').style.display = 'none';
         document.getElementById('section').style.height = '60vh';
         document.getElementById('enviarBotao').addEventListener('click', function(){
             semChat();
@@ -69,6 +70,7 @@ async function comChat() {
         whatsapp: document.getElementById("whatsapp").value,
         casa: document.getElementById("casa").value,
         tipo: document.getElementById("select_morador").value,
+        email: document.getElementById("email").value,
         condominio: cod_condominio,
         status: "ativo",
         foto: "Não"
@@ -181,7 +183,6 @@ async function cadastrarMorador(morador) {
         // Adicionar o morador ao Firestore
         const moradorDb = firebase.firestore().collection('moradores');
         await moradorDb.add(morador);
-
         // Recuperar o ID do morador
         const ultimoMorador = await moradorDb.where('nome', '==', morador.nome).get();
         if (ultimoMorador.empty) {

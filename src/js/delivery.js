@@ -239,6 +239,7 @@ firebase.firestore().collection("delivery").onSnapshot((snapshot) => {
 });
 preencherDadosExistentes(null);
 
+//Pesquisa
 document.getElementById('search_form').addEventListener('submit', function(event) {
     event.preventDefault();
    
