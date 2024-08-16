@@ -205,7 +205,10 @@ async function mudarStatus(cod_pedido){
                 alert(response);
                 informacoes.forEach(doc => {
                     console.log(doc.id);
-                    delivery.doc(doc.id).update({ status: 'entregue' });
+                    delivery.doc(doc.id).update({
+                        status: 'entregue',
+                        data_entrega: new Date()
+                    });
                 });
         
                 setTimeout(() => {

@@ -178,7 +178,7 @@ function alterarAtaFeedBack(ata) {
 //Mostrar ata no modal
 //Modal
 
-function abrirModal(param){ {
+function abrirModal(param){ 
 
     console.log(param);
     const popup = document.querySelector('.popup');
@@ -200,7 +200,6 @@ function alterarModal(param){
     document.querySelector('#problema_popup').innerHTML = param.problema;
     document.querySelector('#status_popup').innerHTML = param.status;
     document.querySelector('#feedback_popup').innerHTML = param.feedback;
-}
 }
 window.addEventListener("click", (event) => {
     const popup = document.querySelector(".popup");

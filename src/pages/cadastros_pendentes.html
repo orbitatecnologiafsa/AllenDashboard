@@ -36,13 +36,6 @@
                     <span>Moradores</span>
                 </a>
             </li>
-           
-            <li >
-                <a href="./configuracao.html">
-                    <i class="fas fa-gear"></i>
-                    <span>Configuração</span>
-                </a>
-            </li>
             <li>
                 <a href="./delivery.html">
                     <i class="fa-solid fa-motorcycle"></i>
@@ -68,6 +61,12 @@
                     <span>Ocorrencia</span>
                 </a>
             </li>
+            <li >
+                <a href="./configuracao.html">
+                    <i class="fas fa-gear"></i>
+                    <span>Configuração</span>
+                </a>
+            </li>
             <li>
                 <a href="#" id="btn_deslogar">
                     <i class="fas fa-sign-out""></i>
@@ -85,7 +84,7 @@
             <div class="user-grid-item">Casa</div>
             <div class="user-grid-item">CPF</div>
             <div class="user-grid-item">Whatsapp</div>
-            <div class="user-grid-item">Tipo</div>
+            <div class="user-grid-item">Foto</div>
             <div class="user-grid-item">Aprovar?</div>
         </div>
         <div class="container">
@@ -93,7 +92,26 @@
             <div id="pagination"></div>
         </div>
     </section>
+    <div class="popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3>Cadastro pendente</h3>
+                <i class="fas fa-times" id="close"></i>
+            </div>
+            <div class="popup-body">
+                <p>Em qual(is) leitor(es) você quer cadastrar esse morador?</p>
+                <div class="popup-list">
+                    <div id="checkbox_group" class="checkbox-group">
 
+                    </div>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button id="btn_cancelar">Cancelar</button>
+                <button id="btn_confirmar">Confirmar</button>
+            </div>
+        </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="../js/cadastros_pendentes.js"></script>
     <script type="module" src="../js/mostrar_nome.js"></script>

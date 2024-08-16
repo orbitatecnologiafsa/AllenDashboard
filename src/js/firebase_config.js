@@ -1,6 +1,7 @@
 import { } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js';
 import { } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js';
 import { } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js';
+import { } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-storage-compat.js';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAkTD55SJgoQ_twKGaZedrcd6I0cESj_IY",
