@@ -3,6 +3,41 @@ import { } from '../firebase_config.js';
 import { } from 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js';
 
 
+Swal.fire({
+    title: 'Digite sua senha',
+    input: 'password',  // Define o tipo do input como senha
+    inputLabel: 'Senha',
+    inputPlaceholder: 'Digite sua senha aqui',
+    inputAttributes: {
+        autocapitalize: 'off'
+    },
+    confirmButtonText: 'OK',
+    showCancelButton: true,  // Adiciona um botão de cancelar
+    cancelButtonText: 'Cancelar',
+    inputValidator: (value) => {
+        if (!value) {
+            return 'Você deve inserir uma senha!';
+        }
+        if (value !== 'orbitatecnologia') {
+            return 'Senha incorreta!'; // Mensagem de erro se a senha estiver errada
+        }
+    }
+}).then((result) => {
+    if (result.isConfirmed) {
+        Swal.fire({
+            title: 'Senha correta',
+            text: 'Você inseriu a senha correta.',
+            icon: 'success'
+        });
+    } else if (result.isDismissed) {
+        Swal.fire({
+            title: 'Cancelado',
+            text: 'Você cancelou a operação.',
+            icon: 'error'
+        });
+        window.location.href = "./main_screen.html";
+    }
+});
 //const session = await conectarFaceID();
 function getEmail() {
     return new Promise((resolve, reject) => {

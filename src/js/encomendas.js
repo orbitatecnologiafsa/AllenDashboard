@@ -1,6 +1,6 @@
 import { } from './firebase_config.js';
 import { generateCode } from './gerarNumero.js';
-
+import { mostrarNotificacao,confirmNotificacao } from './alerts.js';
 
 //Receber codigo condominio 
 
@@ -362,7 +362,7 @@ async function receberDadosMorador(value) {
             preencherDadosMorador(morador);
         });
         if(moradores.docs.length == 0){
-            alert('Morador não encontrado');
+            mostrarNotificacao('error','Morador não encontrado','Erro');
             value = null;
             receberDadosMorador(value);
         }
@@ -451,7 +451,13 @@ document.getElementById('search_morador').addEventListener('keypress', function(
 document.querySelector('#form_encomenda').addEventListener('submit', async function(event) {
     event.preventDefault(); // Impede o envio padrão do formulário
 
-    if(confirm('Tem certeza que deseja salvar a encomenda?')) {
+    const confirmado = await confirmNotificacao(
+        'Tem certeza que deseja salvar a encomenda?',
+        'Encomenda',
+        'Encomenda salva!',
+        'Encomenda cancelada!'
+    );
+    if(confirmado) {
         const input_casa = document.querySelector('#casa_input').value;
         const input_discriminacao = document.querySelector('#discriminacao_input').value;
         const input_recebido = document.querySelector('#recebido_input').value;
@@ -483,8 +489,6 @@ async function salvarEncomenda(encomenda) {
             status: 'pendente',
             qr_code: qr_code
         });
-
-        alert('Encomenda salva com sucesso!');
         document.querySelector('.popup').style.display = 'none';
         document.querySelector('.popup-morador').style.display = 'none';
         document.querySelector('#form_encomenda').reset();
@@ -492,7 +496,7 @@ async function salvarEncomenda(encomenda) {
     } catch (error) {
         console.error('Erro ao salvar a encomenda:', error);
         document.querySelector('#form_encomenda').reset();
-        alert('Houve um erro ao salvar a encomenda. Tente novamente.');
+        mostrarNotificacao('error','Houve um erro ao salvar a encomenda. Tente novamente.','Erro');
     }
 }
 

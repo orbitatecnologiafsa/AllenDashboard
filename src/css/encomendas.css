@@ -644,3 +644,7 @@ section{
     justify-content: center;
     color: black;
 }
+
+.swal2-container {
+    z-index: 99999 !important; 
+}

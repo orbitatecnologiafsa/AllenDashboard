@@ -1,7 +1,32 @@
 import { } from './firebase_config.js';
+import { mostrarNotificacao,confirmNotificacao } from './alerts.js';
 
+function getEmail() {
+    return new Promise((resolve, reject) => {
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                const userEmail = user.email;
+                resolve(userEmail);
+            } else {
+                console.log("Nenhum usuário autenticado.");
+                reject("Nenhum usuário autenticado.");
+            }
+        });
+    });
+}
 
-
+async function getCondominio() {
+    try {
+        const userEmail = await getEmail();
+        const userDb = firebase.firestore().collection('condominio');
+        const sindico = await userDb.where('email', '==', userEmail).get();
+        const sindicoData = sindico.docs[0].data();
+        const cod_condominio = sindicoData.cod_Condominio;
+        return cod_condominio;
+    } catch (error) {
+        return null;
+    }
+}
 
 //Gerar codigo aleatorio:
 function gerarCodigoAleatorio(comprimento = 32) {
@@ -34,12 +59,18 @@ function converterData(data_user) {
     return dataFormatada;
 
 }
-//Cadastrar novo ata
 
+const cod_cond = await getCondominio();
 const form = document.querySelector('#ata-form');
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    if(confirm ('Tem certeza que deseja salvar a ata?')) {
+    const confirmado = await confirmNotificacao(
+        'Tem certeza que deseja registrar esta ocorrencia?',
+        'Registrar ocorrencia',
+        'Ocorrencia registrada',
+        'Ocorrencia cancelada'
+    );
+    if(confirmado) {
         const enviar_botao = document.querySelector('#enviar_botao');
         enviar_botao.style.display = 'none';
         const ata = {
@@ -50,13 +81,13 @@ form.addEventListener('submit', (event) => {
             problema: document.querySelector('#problema').value,
             codigo: gerarCodigoAleatorio(16),
             status : 'Pendente',
-            feedback: 'Nenhum'
+            feedback: 'Nenhum',
+            codigo_cod: cod_cond
         };
     
         const ataDb = firebase.firestore().collection('ata');
         ataDb.add(ata);
         document.querySelector('#ata-form').reset();
-        alert('Ata salva com sucesso!');
         if(enviar_botao.style.display = 'none') {
             enviar_botao.style.display = 'block';
         }
@@ -68,19 +99,19 @@ form.addEventListener('submit', (event) => {
 
 firebase.firestore().collection("ata").onSnapshot((snapshot) => {
     snapshot.docChanges().forEach((change) => {
-        if (change.type === "added") {
+        if (change.type === "added" && change.doc.data().codigo_cod == cod_cond) {
             console.log("Novo documento adicionado: ", change.doc.data());
             const ata = change.doc.data();
             adicionarAtaFeedBack(ata);
         }
-        if (change.type === "modified") {
+        if (change.type === "modified"  && change.doc.data().codigo_cod == cod_cond) {
             console.log("Documento modificado: ", change.doc.data());
             const ata = change.doc.data();
             alterarModal(ata);
             alterarAtaFeedBack(ata);
             
         }
-        if (change.type === "removed") {
+        if (change.type === "removed"  && change.doc.data().codigo_cod == cod_cond) {
             console.log("Documento removido: ", change.doc.data());
         }
     });

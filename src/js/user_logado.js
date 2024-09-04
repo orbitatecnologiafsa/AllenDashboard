@@ -1,5 +1,6 @@
 import { } from './firebase_config.js';
 import { } from 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js';
+import { mostrarNotificacao } from './alerts.js';
 
 function getEmail() {
     return new Promise((resolve, reject) => {
@@ -164,12 +165,19 @@ function exibirElementos(lista, pagina) {
   
         const deleteImg = document.createElement('img');
         deleteImg.setAttribute('class','icon');
-        
+        deleteImg.setAttribute('id','btn_remover');
+        deleteImg.addEventListener('click', () => {
+            mostrarNotificacao('error',"Porfavor, entre em contato com o sindico","Permissão Insuficiente");
+        })
         const editImg = document.createElement('img');
         editImg.setAttribute('class','icon');
         editImg.setAttribute('id','btn_editar');
+        editImg.addEventListener('click', () => {
+            mostrarNotificacao('error',"Porfavor, entre em contato com o sindico","Permissão Insuficiente");
+        })
         imgDiv.appendChild(editImg);
         imgDiv.appendChild(deleteImg);
+
 
         const moradorFoto = document.createElement('img');
         const imgDiv2 = document.createElement('div');
@@ -184,13 +192,7 @@ function exibirElementos(lista, pagina) {
         if(morador.status == 'ativo'){
             editImg.setAttribute('src','../img/editar.svg');
             editImg.style.cursor = 'pointer';
-            editImg.addEventListener('click', () => {
-                alert("Você não pode editar o morador ativo, por favor, entre em contato com o sindico");
-            });
             deleteImg.setAttribute('src','../img/remover.svg');
-            deleteImg.addEventListener('click', () => {
-                alert("Você não pode remover o morador ativo, por favor, entre em contato com o sindico");
-            });
             deleteImg.style.cursor = 'pointer';
             moradorItem.style.backgroundColor = 'white';
         }
@@ -263,7 +265,7 @@ function editClient(id) {
     var popup = window.open(url, 'Edição de Usuário', options);
   
     if (!popup || popup.closed || typeof popup.closed == 'undefined') {
-        alert('Por favor, desbloqueie os popups para continuar.');
+        mostrarNotificacao('error',"Porfavor, entre em contato com o sindico","Problemas Tecnicos");
     }
 }
 

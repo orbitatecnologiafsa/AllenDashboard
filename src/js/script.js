@@ -1,4 +1,4 @@
-
+import { mostrarNotificacao,confirmNotificacao } from './alerts.js';
 function showPassword(){
 
     const img_eye = document.getElementById('olhinhos-azuis');
@@ -26,13 +26,13 @@ function login(){
 
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then((userCredential) => { 
-        alert('Login efetuado com sucesso!');
+        mostrarNotificacao('success','Login efetuado com sucesso!','Login');
         window.location.href = "./src/pages/main_screen.html";
     })
     .catch((error) => {
         console.error('Erro ao autenticar usuário:', error);
         console.error('Código de erro:', error.code);
-        alert('Erro ao autenticar usuário: ' + error.message);
+        mostrarNotificacao('error','Erro ao autenticar usuário: ' + error.message,'Login');
     });
 }
 
