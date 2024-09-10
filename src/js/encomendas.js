@@ -461,13 +461,14 @@ document.querySelector('#form_encomenda').addEventListener('submit', async funct
         const input_casa = document.querySelector('#casa_input').value;
         const input_discriminacao = document.querySelector('#discriminacao_input').value;
         const input_recebido = document.querySelector('#recebido_input').value;
+        const recebido_date = new Date(input_recebido);
         const input_destinatario = document.querySelector('#destinatario_input').value;
         const morador_cpf = morador_para_salvar.cpf;
 
         const encomenda = {
             casa: input_casa,
             discriminacao: input_discriminacao,
-            recebido: input_recebido,
+            recebido: recebido_date,
             entregue: '',
             telefone: morador_para_salvar.telefone,
             destinatario: input_destinatario,
