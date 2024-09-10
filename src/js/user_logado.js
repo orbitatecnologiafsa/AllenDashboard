@@ -371,4 +371,5 @@ document.getElementById('search_form').addEventListener('submit', function(event
     mostrarMorador(value);
 });
 
+export { getEmail }
 

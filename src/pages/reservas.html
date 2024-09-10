@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="shortcut icon" href="../img/allenbot_logo.png" type="image/x-icon">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <link rel="stylesheet" href="../css/main_screen.css">
+    <link rel="stylesheet" href="../css/reservas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <title>AllenBot</title>
 </head>
 <body>
@@ -18,9 +18,6 @@
             <div>
                 <h1>AllenBot</h1>
             </div>
-            <form id="search_form">
-                <input type="search" id="search" placeholder="Pesquisar..." autocomplete="off">
-            </form>
             <nav class="nav">
                 <p id="user-logged">Logado em:<span id="user-name"></span> </p>
             </nav>
@@ -31,12 +28,12 @@
             <img src="../img/allenbotnoname_logo.png" alt="">
         </div>
         <ul class="menu">
-            <li id="active">
+            <li>
                 <a href="./main_screen.html">
-                    <i class="fas fa-users" style="color: #821A4D;"></i>
-                    <span style="color: #821A4D;">Moradores</span>
+                    <i class="fas fa-users"></i>
+                    <span>Moradores</span>
                 </a>
-            </li> 
+            </li>
             <li>
                 <a href="./delivery.html">
                     <i class="fa-solid fa-motorcycle"></i>
@@ -62,13 +59,13 @@
                     <span>Ocorrencia</span>
                 </a>
             </li>
-            <li>
+             <li id="active">
                 <a href="./reservas.html">
                     <i class="fas fa-calendar" style="color: #821A4D;"></i>
                     <span style="color: #821A4D;">Reservas</span>
                 </a>
              </li>
-            <li>
+            <li >
                 <a href="./configuracao.html">
                     <i class="fas fa-gear"></i>
                     <span>Configuração</span>
@@ -82,26 +79,18 @@
             </li>
         </ul>
     </div>
-    <section class="user-container">
-        <div class="user-div-title">
-            <h1>Moradores Cadastrados</h1>
-        </div>
-        <div class="user-grid">
-            <div class="user-grid-item">Nome</div>
-            <div class="user-grid-item">Casa</div>
-            <div class="user-grid-item">CPF</div>
-            <div class="user-grid-item">Whatsapp</div>
-            <div class="user-grid-item">Tipo</div>
-            <div class="user-grid-item">Foto</div>
-            <div class="user-grid-item">Editar/Remover</div>
-        </div>
-        <div class="container">
-            <ul class="user-list" id="moradorLista"></ul>
-            <div id="pagination"></div>
-        </div>
-    </section>
-    <script type="module" src="../js/firebase_config.js"></script>
-    <script type="module" src="../js/user_logado.js"></script>
-    <script type="module" src="../js/deslogar.js"></script>
+    <main>
+        <section id="active_tickets_section" class="content-section">
+           <div class="data-picker">
+                <label for="date-picker">Data:</label>
+                <input type="text" name="date-picker" id="date-picker" placeholder="Selecione uma data">
+                <button id="clear-dates">Limpar Datas</button>
+           </div>
+            <ul class="tickets" id="tickets-ativos-ul">
+            
+            </ul>
+        </section>
+    </main>
+    <script type="module" src="../js/reservas.js"></script>
 </body>
 </html>
