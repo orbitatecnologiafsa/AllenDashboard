@@ -163,7 +163,6 @@ main{
     width: 90vw;
     height: 85vh;
     border-radius: 10px;
-    border: 2px solid #821a4c;
 }
 .data-picker{
     display: flex;
@@ -269,3 +268,152 @@ main{
     text-align: end;
 }
 
+
+#calendar {
+    width: 100%;
+    height: 70vh;
+    text-transform: uppercase;
+}
+
+.modal1 {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.233);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 9% auto;
+    padding: 20px;
+    width: 50%;
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.fc .fc-toolbar-title {
+    color: var(--primary-color);
+    font-size: 1.5em;
+}
+
+.fc .fc-button {
+    width: auto;
+    padding: 5px 10px;
+    font-weight: 500;
+    white-space: nowrap;
+    border: none;
+    background-color: grey;
+    color: white;
+}
+
+.fc .fc-daygrid-day-number {
+    color: var(--primary-color);
+}
+
+.fc-event {
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.fc-event:hover {
+    background-color: rgba(0, 0, 0, 0.2); 
+    color: white;
+    cursor: pointer;
+}
+
+.fc-event-blue {
+    background-color: blue;
+}
+
+.fc-event-orange {
+    background-color: orange;
+}
+
+.fc-event-grey {
+    background-color: grey;
+}
+
+.fc-event-green {
+    background-color: green;
+}
+
+.fc-event-red {
+    background-color: red;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.bolinha {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+
+.bolinha.fix {
+    background-color: rgb(145, 145, 145);
+}
+
+.bolinha.res {
+    background-color: green;
+}
+
+.bolinha.pag {
+    background-color: orange;
+}
+
+.bolinha.evt {
+    background-color: red;
+}
+
+label {
+    padding-left: 6px;
+    color: var(--primary-color);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.event-details {
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    max-width: 600px;
+    text-align: left;
+}
+
+.event-details p {
+    margin: 10px 0;
+}
+
+.event-actions {
+    text-align: right;
+    margin-top: 20px;
+}
