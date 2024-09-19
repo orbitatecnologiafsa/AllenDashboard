@@ -83,63 +83,16 @@ telaInicial();
 
 //Preencher dados encomendas
 
-function converterData(data_user) {
-
-
-    const data = new Date(data_user);
+function converterData(timestampFirebase) {
+    const data = timestampFirebase.toDate(); // Converte o Timestamp para Date
 
     const dia = String(data.getDate()).padStart(2, '0');
     const mes = String(data.getMonth() + 1).padStart(2, '0'); // Mês começa em 0
     const ano = data.getFullYear();
-    const horas = String(data.getHours()).padStart(2, '0');
-    const minutos = String(data.getMinutes()).padStart(2, '0');
 
-    const dataFormatada = `${dia}/${mes}/${ano} às ${horas}:${minutos}`;
+    const dataFormatada = `${dia}/${mes}/${ano}`;
    
     return dataFormatada;
-
-}
-async function receberDados() {
-    
-    const pendentes_ul = document.querySelector('.pendentes-ul');
-    pendentes_ul.innerHTML = '';
-    const entregues_ul = document.querySelector('.entregues-ul');
-    entregues_ul.innerHTML = '';
-    const encomendasDb = firebase.firestore().collection('encomendas');
-    
-    const encomendas_pendentes = await encomendasDb.where('status', '==', 'pendente').get();
-    encomendas_pendentes.forEach(doc => {
-        const encomenda_pendente = {
-            destinatario: doc.data().destinatario,
-            casa: doc.data().casa,
-            status: doc.data().status,
-            recebido: converterData(doc.data().recebido),
-            qr_code: doc.data().qr_code,
-            discriminacao: doc.data().discriminacao,
-            id: doc.id
-        }; 
-    
-        preencherDadosEncomendas(encomenda_pendente);
-        }
-    );
-        
-    const encomendas_entregues = await encomendasDb.where('status', '==', 'entregue').get();
-    encomendas_entregues.forEach(doc => {
-       
-        const encomenda_entregue = {
-            destinatario: doc.data().destinatario,
-            casa: doc.data().casa,
-            status: doc.data().status,
-            recebido: converterData(doc.data().recebido),
-            entregue: converterData(doc.data().entregue),
-            discriminacao: doc.data().discriminacao,
-            id: doc.id
-        };
-       
-        preencherDadosEncomendas(encomenda_entregue);
-        }
-    );
-    
 }
 
 function preencherDadosEncomendas(encomenda) {
@@ -194,6 +147,7 @@ function preencherDadosEncomendas(encomenda) {
         }
         else if(encomenda.status == 'entregue') {
 
+            console.log('entrega entregue')
             const entregues_ul = document.querySelector('.entregues-ul');
             const entregues_li = document.createElement('li');
             entregues_li.setAttribute('class', 'entregues-li');
@@ -247,6 +201,18 @@ firebase.firestore().collection("encomendas").onSnapshot((snapshot) => {
                 }
                 preencherDadosEncomendas(encomenda);
             }
+            else if(change.doc.data().status == 'entregue') {
+                const encomenda = {
+                    destinatario: change.doc.data().destinatario, 
+                    casa: change.doc.data().casa,
+                    discriminacao: change.doc.data().discriminacao,
+                    recebido: converterData(change.doc.data().recebido),
+                    entregue: converterData(change.doc.data().entregue),
+                    status: change.doc.data().status,
+                    qr_code: change.doc.data().qr_code
+                };
+                preencherDadosEncomendas(encomenda);
+            }
         }
         if (change.type === "modified") {
             if (change.doc.data().status == 'entregue') {
@@ -275,7 +241,6 @@ firebase.firestore().collection("encomendas").onSnapshot((snapshot) => {
     });
 });
 
-receberDados();
 //Modal
 
 const button_add_encomenda = document.querySelector('#btn_adicionar_encomenda');
@@ -493,7 +458,7 @@ async function salvarEncomenda(encomenda) {
         document.querySelector('.popup').style.display = 'none';
         document.querySelector('.popup-morador').style.display = 'none';
         document.querySelector('#form_encomenda').reset();
-        receberDados(); // Atualiza a lista de encomendas
+       
     } catch (error) {
         console.error('Erro ao salvar a encomenda:', error);
         document.querySelector('#form_encomenda').reset();
